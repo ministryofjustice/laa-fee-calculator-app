@@ -1,9 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails app to demonstrate use of ministryofjustice/laa-fee-calculator-client gem
+to consume the ministryofjustice/laa-fee-calculator API.
 
-Things you may want to cover:
+# TODO: Things you may want to cover:
 
 * Ruby version
 
