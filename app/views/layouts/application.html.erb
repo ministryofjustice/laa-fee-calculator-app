@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LaaFeeCalculatorApp</title>
+    <title>LAA fee calculator demo</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,7 +10,12 @@
   </head>
   <body>
     <div id="main-container" class="container">
-      <%= yield %>
+      <div class="row", style="background-color: #F7F7F7; padding: 20px;">
+        <div class="col-xs-3"></div>
+          <h3>LAA fee calculator client application</h3>
+          <%= yield %>
+        </div>
+      </div>
     </div>
   </body>
 </html>
