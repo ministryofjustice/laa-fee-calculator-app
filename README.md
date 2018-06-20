@@ -1,7 +1,7 @@
 # README
 
-Rails app to demonstrate use of ministryofjustice/laa-fee-calculator-client gem
-to consume the ministryofjustice/laa-fee-calculator API.
+Rails app to demonstrate use of [ministryofjustice/laa-fee-calculator-client](https://github.com/ministryofjustice/laa-fee-calculator-client) gem
+to consume the [ministryofjustice/laa-fee-calculator](https://github.com/ministryofjustice/laa-fee-calculator) API.
 
 # TODO: Things you may want to cover:
 
