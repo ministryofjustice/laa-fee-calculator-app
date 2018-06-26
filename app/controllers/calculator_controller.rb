@@ -25,11 +25,10 @@ class CalculatorController < ApplicationController
   end
 
   def fee_scheme_changed
-    # respond_to do |format|
-    #   format.html { set_list_data; render actions: :new }
-    #   format.js
-    # end
-    render :new
+    respond_to do |format|
+      format.html { render action: :new }
+      format.js
+    end
   end
 
   private
@@ -49,11 +48,6 @@ class CalculatorController < ApplicationController
 
   def client
     @client ||= LAA::FeeCalculator.client
-  end
-
-  def agfs_scheme_9
-    return @agfs_scheme_9 if @agfs_scheme_9
-    @agfs_scheme_9 = client.fee_schemes(1)
   end
 
   def calculator_params

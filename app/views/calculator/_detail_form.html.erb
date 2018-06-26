@@ -1,4 +1,4 @@
-<%= form_tag({controller: "calculator", action: "calculate"}, method: 'get', remote: true, role: "form") do %>
+<%= form_tag({controller: "calculator", action: "calculate"}, id: 'detail_form', method: 'get', remote: true, role: "form") do %>
 
   <%= hidden_field_tag 'fee_scheme', @fee_scheme.id %>
 
