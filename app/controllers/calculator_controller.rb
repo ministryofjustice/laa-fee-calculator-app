@@ -1,12 +1,13 @@
 class CalculatorController < ApplicationController
   attr_reader :fee_scheme
 
+  before_action :set_list_data, only: [:new, :fee_scheme_changed]
+  before_action :set_fee_scheme, only: :calculate
+
   def new
-    set_list_data
   end
 
   def calculate
-    set_fee_scheme
     @amount = fee_scheme.calculate do |options|
       options[:scenario] = calculator_params[:scenario] if calculator_params[:scenario].present?
       options[:offence_class] = calculator_params[:offence_class] if calculator_params[:offence_class].present?
@@ -28,7 +29,6 @@ class CalculatorController < ApplicationController
     #   format.html { set_list_data; render actions: :new }
     #   format.js
     # end
-    set_list_data
     render :new
   end
 
