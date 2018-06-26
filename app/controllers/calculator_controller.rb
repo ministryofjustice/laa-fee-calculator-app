@@ -3,7 +3,7 @@ class CalculatorController < ApplicationController
     set_list_data
   end
 
-  def create
+  def calculate
     fee_scheme = agfs_scheme_9
     @amount = fee_scheme.calculate do |options|
       # options[:scenario] = 5
@@ -14,15 +14,14 @@ class CalculatorController < ApplicationController
       # options[:number_of_defendants] = 1
       # options[:number_of_cases] = 1
 
-      options[:scenario] = calculator_params[:scenario_id] if calculator_params[:scenario_id].present?
-      options[:offence_class] = calculator_params[:offence_class_id] if calculator_params[:offence_class_id].present?
-      options[:advocate_type] = calculator_params[:advocate_type_id] if calculator_params[:advocate_type_id].present?
+      options[:scenario] = calculator_params[:scenario] if calculator_params[:scenario].present?
+      options[:offence_class] = calculator_params[:offence_class] if calculator_params[:offence_class].present?
+      options[:advocate_type] = calculator_params[:advocate_type] if calculator_params[:advocate_type].present?
       options[:fee_type_code] = calculator_params[:fee_type_code] if calculator_params[:fee_type_code].present?
       options[:day] = calculator_params[:day] if calculator_params[:day].present?
       options[:number_of_defendants] = calculator_params[:number_of_defendants] if calculator_params[:number_of_defendants].present?
       options[:number_of_cases] = calculator_params[:number_of_cases] if calculator_params[:number_of_cases].present?
     end
-    ap @amount
 
     respond_to do |format|
       format.html { set_list_data; render actions: :new }
@@ -34,18 +33,43 @@ class CalculatorController < ApplicationController
 
   def set_list_data
     fee_scheme = agfs_scheme_9
-    @scenarios = fee_scheme.scenarios.map { |at| [at.name, at.id] }
+    @scenarios = fee_scheme.scenarios.map { |s| [s.name, s.id] }
     @advocate_types = fee_scheme.advocate_types.map { |at| [at.name, at.id] }
-    @offence_classes = fee_scheme.offence_classes.map { |at| ["#{at.name} - #{at.description}", at.id] }
-    @fee_types = fee_scheme.fee_types.map { |at| [at.name, at.code] }
+    @offence_classes = fee_scheme.offence_classes.map { |oc| ["#{oc.name} - #{oc.description}", oc.id] }
+    @fee_types = fee_scheme.fee_types.map { |ft| [ft.name, ft.code] }
+  end
+
+  def client
+    @client ||= LAA::FeeCalculator.client
   end
 
   def agfs_scheme_9
-    client = LAA::FeeCalculator.client
-    client.fee_schemes(1)
+    return @agfs_scheme_9 if @agfs_scheme_9
+    @agfs_scheme_9 = client.fee_schemes(1)
   end
 
   def calculator_params
-    params.permit(:scenario_id,:offence_class_id,:advocate_type_id, :fee_type_code, :day, :number_of_cases, :number_of_defendants)
+    params.permit(
+      :scenario,
+      :offence_class,
+      :advocate_type,
+      :fee_type_code,
+      :day,
+      :case,
+      :defendant,
+      :fixed,
+      :halfday,
+      :hour,
+      :month,
+      :ppe,
+      :pw,
+      :third,
+      :number_of_cases,
+      :number_of_defendants,
+      :pages_of_prosection_evidence,
+      :trial_length,
+      :retrial_interval,
+      :third_cracked
+    )
   end
 end
