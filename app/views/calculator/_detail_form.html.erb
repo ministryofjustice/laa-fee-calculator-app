@@ -1,0 +1,12 @@
+<%= form_tag({controller: "calculator", action: "calculate"}, method: 'get', remote: true, role: "form") do %>
+
+  <%= render 'select_lists' %>
+
+  <%= render 'values'%>
+
+  <%= render 'modifiers'%>
+
+  <div class="form-group">
+    <%= submit_tag("Calculate", class: 'btn-primary btn-lg') %>
+  </div>
+<% end %>

@@ -1,16 +1,7 @@
 <%= render 'blurb' %>
 
-<%= form_tag({controller: "calculator", action: "calculate"}, method: 'get', remote: true, role: "form") do %>
+<%= render 'fee_schemes_form' %>
 
-  <%= render 'select_lists' %>
-
-  <%= render 'values'%>
-
-  <%= render 'modifiers'%>
-
-  <div class="form-group">
-    <%= submit_tag("Calculate", class: 'btn-primary btn-lg') %>
-  </div>
-<% end %>
+<%= render 'detail_form' %>
 
 <div id='result'>£ 0.00</div>

@@ -1,19 +1,13 @@
 class CalculatorController < ApplicationController
+  attr_reader :fee_scheme
+
   def new
     set_list_data
   end
 
   def calculate
-    fee_scheme = agfs_scheme_9
+    set_fee_scheme
     @amount = fee_scheme.calculate do |options|
-      # options[:scenario] = 5
-      # options[:offence_class] = 'E'
-      # options[:advocate_type] = 'JRALONE'
-      # options[:fee_type_code] = 'AGFS_APPEAL_CON'
-      # options[:day] = 1
-      # options[:number_of_defendants] = 1
-      # options[:number_of_cases] = 1
-
       options[:scenario] = calculator_params[:scenario] if calculator_params[:scenario].present?
       options[:offence_class] = calculator_params[:offence_class] if calculator_params[:offence_class].present?
       options[:advocate_type] = calculator_params[:advocate_type] if calculator_params[:advocate_type].present?
@@ -24,15 +18,29 @@ class CalculatorController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { set_list_data; render actions: :new }
+      format.html { set_list_data; render action: :new }
       format.js
     end
   end
 
+  def fee_scheme_changed
+    # respond_to do |format|
+    #   format.html { set_list_data; render actions: :new }
+    #   format.js
+    # end
+    set_list_data
+    render :new
+  end
+
   private
 
+  def set_fee_scheme
+    @fee_scheme = client.fee_schemes(id: calculator_params[:fee_scheme] || 1)
+  end
+
   def set_list_data
-    fee_scheme = agfs_scheme_9
+    set_fee_scheme
+    @fee_schemes = client.fee_schemes.map { |fs| [fs.description, fs.id] }
     @scenarios = fee_scheme.scenarios.map { |s| [s.name, s.id] }
     @advocate_types = fee_scheme.advocate_types.map { |at| [at.name, at.id] }
     @offence_classes = fee_scheme.offence_classes.map { |oc| ["#{oc.name} - #{oc.description}", oc.id] }
@@ -50,6 +58,7 @@ class CalculatorController < ApplicationController
 
   def calculator_params
     params.permit(
+      :fee_scheme,
       :scenario,
       :offence_class,
       :advocate_type,
