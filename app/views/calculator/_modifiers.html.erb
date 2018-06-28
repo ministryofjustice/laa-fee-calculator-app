@@ -1,0 +1,13 @@
+<div id='modifiers'>
+  <% if @modifiers.present? %>
+    <h5>Modifiers</h5>
+
+    <% @modifiers.each do |modifier| %>
+      <div class="form-group">
+        <%= label_tag modifier, nil, class: 'col-sm-2 control-label' %>
+        <%= number_field_tag modifier, class: 'col-sm-10 form-control'%>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+

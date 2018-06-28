@@ -1,6 +1,7 @@
 GIT
   remote: git@github.com:ministryofjustice/laa-fee-calculator-client.git
-  revision: 522840f5fa0817a6c42065aff8c9eaec43adb173
+  revision: cffe40aed4449101c010acd971bec6efd3e32596
+  tag: v0.1.0
   specs:
     laa-fee-calculator-client (0.1.0)
       addressable (~> 2.3.7)

@@ -1,0 +1,11 @@
+<div id='units'>
+  <% if @units.present? %>
+    <h5>Units</h5>
+    <% @units.each do |unit| %>
+      <div class="form-group">
+        <%= label_tag unit, nil, class: 'col-sm-2 control-label' %>
+        <%= number_field_tag(unit, class: 'col-sm-10 form-control') %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
