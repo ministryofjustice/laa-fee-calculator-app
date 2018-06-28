@@ -1,0 +1,14 @@
+<%= form_tag({controller: "calculator", action: "calculate"}, id: 'detail_form', method: 'get', remote: true) do %>
+
+  <%= hidden_field_tag 'fee_scheme', @fee_scheme.id %>
+
+  <%= render 'select_lists' %>
+
+  <%= render 'units'%>
+
+  <%= render 'modifiers'%>
+
+  <div class="form-group">
+    <%= submit_tag("Calculate", class: 'btn-primary btn-lg') %>
+  </div>
+<% end %>
