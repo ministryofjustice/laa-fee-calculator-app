@@ -36,7 +36,7 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'laa-fee-calculator-client', :git => 'git@github.com:ministryofjustice/laa-fee-calculator-client.git', :tag => 'v0.1.0'
+gem 'laa-fee-calculator-client', :github => 'ministryofjustice/laa-fee-calculator-client', :tag => 'v0.1.0'
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
