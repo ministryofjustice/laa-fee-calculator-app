@@ -5,6 +5,7 @@ build:
     RAILS_ENV: production
 release:
   command:
+    - rake db:setup
     - rake db:migrate
 run:
   web: bundle exec puma -C config/puma.rb
