@@ -1,4 +1,5 @@
 # FIXME: testing fee calculator integration against local server
+# client gem will default to
 LAA::FeeCalculator.configure do |config|
-  config.host = 'http://localhost:8000/api/v1'
+  config.host = ENV['laa_fee_calculator_host']
 end

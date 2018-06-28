@@ -40,6 +40,7 @@ gem 'laa-fee-calculator-client', :git => 'git@github.com:ministryofjustice/laa-f
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
+gem "figaro"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
