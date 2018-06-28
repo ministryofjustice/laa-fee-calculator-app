@@ -64,8 +64,6 @@ class CalculatorController < ApplicationController
   end
 
   def set_text_fields
-    ap "File: #{File.basename(__FILE__)}, Method: #{__method__}, Line: #{__LINE__}"
-    ap common_options
     @units = fee_scheme.units(common_options).map { |u| u.id.downcase }
     @modifiers = fee_scheme.modifier_types(common_options).map { |m| m.name.downcase }
   end
