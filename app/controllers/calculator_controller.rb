@@ -1,44 +1,76 @@
 class CalculatorController < ApplicationController
   attr_reader :fee_scheme
 
-  before_action :set_list_data, only: [:new, :fee_scheme_changed]
-  before_action :set_fee_scheme, only: :calculate
+  # before_action :setup, only: [:new, :calculate, :fee_scheme_changed, :select_list_changed]
+
+  FEE_CALCULATOR_FIELDS = %i[fee_scheme scenario offence_class advocate_type fee_type_code case day defendant fixed halfday hour month ppe pw third number_of_cases number_of_defendants trial_length pages_of_prosection_evidence retrial_interval third_cracked]
 
   def new
+    setup
   end
 
   def calculate
+    set_fee_scheme
+    set_select_lists
+    set_text_fields
     @amount = fee_scheme.calculate do |options|
-      options[:scenario] = calculator_params[:scenario] if calculator_params[:scenario].present?
-      options[:offence_class] = calculator_params[:offence_class] if calculator_params[:offence_class].present?
-      options[:advocate_type] = calculator_params[:advocate_type] if calculator_params[:advocate_type].present?
-      options[:fee_type_code] = calculator_params[:fee_type_code] if calculator_params[:fee_type_code].present?
-      options[:day] = calculator_params[:day] if calculator_params[:day].present?
-      options[:number_of_defendants] = calculator_params[:number_of_defendants] if calculator_params[:number_of_defendants].present?
-      options[:number_of_cases] = calculator_params[:number_of_cases] if calculator_params[:number_of_cases].present?
+      FEE_CALCULATOR_FIELDS.each do |field|
+        options[field] = calculator_params[field] if calculator_params[field].present?
+      end
     end
 
     respond_to do |format|
-      format.html { set_list_data; render action: :new }
       format.js
+      format.html { render action: :new }
     end
   end
 
   def fee_scheme_changed
+    set_fee_scheme
+    set_select_lists
+    set_text_fields
     respond_to do |format|
+      format.js
       format.html { render action: :new }
+    end
+  end
+
+  def select_list_changed
+    set_fee_scheme
+    set_select_lists
+    set_text_fields
+    respond_to do |format|
       format.js
     end
   end
 
   private
 
+  def client
+    @client ||= LAA::FeeCalculator.client
+  end
+
   def set_fee_scheme
     @fee_scheme = client.fee_schemes(id: calculator_params[:fee_scheme] || 1)
   end
 
-  def set_list_data
-    set_fee_scheme
+  def common_options
+    options = {}
+    options[:scenario] = calculator_params[:scenario] if calculator_params[:scenario].present?
+    options[:offence_class] = calculator_params[:offence_class] if calculator_params[:offence_class].present?
+    options[:advocate_type] = calculator_params[:advocate_type] if calculator_params[:advocate_type].present?
+    options[:fee_type_code] = calculator_params[:fee_type_code] if calculator_params[:fee_type_code].present?
+    options
+  end
+
+  def set_text_fields
+    ap "File: #{File.basename(__FILE__)}, Method: #{__method__}, Line: #{__LINE__}"
+    ap common_options
+    @units = fee_scheme.units(common_options).map { |u| u.id.downcase }
+    @modifiers = fee_scheme.modifier_types(common_options).map { |m| m.name.downcase }
+  end
+
+  def set_select_lists
     @fee_schemes = client.fee_schemes.map { |fs| [fs.description, fs.id] }
     @scenarios = fee_scheme.scenarios.map { |s| [s.name, s.id] }
     @advocate_types = fee_scheme.advocate_types.map { |at| [at.name, at.id] }
@@ -46,8 +78,10 @@ class CalculatorController < ApplicationController
     @fee_types = fee_scheme.fee_types.map { |ft| [ft.name, ft.code] }
   end
 
-  def client
-    @client ||= LAA::FeeCalculator.client
+  def setup
+    set_fee_scheme
+    set_select_lists
+    set_text_fields
   end
 
   def calculator_params

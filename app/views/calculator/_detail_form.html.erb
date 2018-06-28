@@ -1,10 +1,10 @@
-<%= form_tag({controller: "calculator", action: "calculate"}, id: 'detail_form', method: 'get', remote: true, role: "form") do %>
+<%= form_tag({controller: "calculator", action: "calculate"}, id: 'detail_form', method: 'get', remote: true) do %>
 
   <%= hidden_field_tag 'fee_scheme', @fee_scheme.id %>
 
   <%= render 'select_lists' %>
 
-  <%= render 'values'%>
+  <%= render 'units'%>
 
   <%= render 'modifiers'%>
 

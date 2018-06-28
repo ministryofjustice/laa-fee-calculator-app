@@ -1,26 +1,13 @@
-<h5>Modifiers</h5>
+<div id='modifiers'>
+  <% if @modifiers.present? %>
+    <h5>Modifiers</h5>
 
-<div class="form-group">
-  <%= label_tag 'number_of_defendants', nil, class: 'col-sm-2 control-label' %>
-  <%= number_field_tag 'number_of_defendants', class: 'col-sm-10 form-control'%>
+    <% @modifiers.each do |modifier| %>
+      <div class="form-group">
+        <%= label_tag modifier, nil, class: 'col-sm-2 control-label' %>
+        <%= number_field_tag modifier, class: 'col-sm-10 form-control'%>
+      </div>
+    <% end %>
+  <% end %>
 </div>
-<div class="form-group">
-  <%= label_tag 'number_of_cases', nil, class: 'col-sm-2 control-label' %>
-  <%= number_field_tag 'number_of_cases', class: 'col-sm-10 form-control' %>
-</div>
-<div class="form-group">
-  <%= label_tag 'trial_length', nil, class: 'col-sm-2 control-label' %>
-  <%= number_field_tag 'trial_length', class: 'col-sm-10 form-control' %>
-</div>
-<div class="form-group">
-  <%= label_tag 'pages_of_prosection_evidence', nil, class: 'col-sm-3 control-label' %>
-  <%= number_field_tag 'pages_of_prosection_evidence', class: 'col-sm-10 form-control' %>
-</div>
-<div class="form-group">
-  <%= label_tag 'retrial_interval', nil, class: 'col-sm-2 control-label' %>
-  <%= number_field_tag 'retrial_interval', class: 'col-sm-10 form-control' %>
-</div>
-<div class="form-group">
-  <%= label_tag 'third_cracked', nil, class: 'col-sm-2 control-label' %>
-  <%= number_field_tag 'third_cracked', class: 'col-sm-10 form-control' %>
-</div>
+
