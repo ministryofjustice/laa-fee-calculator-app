@@ -3,7 +3,7 @@
     <h5>Units</h5>
     <% @units.each do |unit| %>
       <div class="row">
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-6">
           <%= label_tag unit, nil, class: 'control-label' %>
           <%= number_field_tag(unit, nil, class: 'form-control') %>
         </div>

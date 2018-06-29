@@ -1,9 +1,10 @@
-<%= form_tag({controller: "calculator", action: "fee_scheme_changed"}, method: 'get', remote: true, role: "form", id: "fee_schemes_form") do %>
-
-  <div class='row'>
-    <div class='form-group col-md-5'>
-        <%= label_tag 'fee_scheme' %>
-        <%= select_tag(:fee_scheme, options_for_select(@fee_schemes, @fee_scheme.id), class: 'form-control') %>
+<%= form_tag({controller: "calculator", action: "fee_scheme_changed"}, method: 'get', remote: true, id: "fee_schemes_form") do %>
+  <div class='row col-md-12'>
+    <div class='row'>
+      <div class='form-group col-md-6'>
+          <%= label_tag 'fee_scheme' %>
+          <%= select_tag(:fee_scheme, options_for_select(@fee_schemes, @fee_scheme.id), class: 'form-control') %>
+      </div>
     </div>
   </div>
 <% end %>

@@ -1,7 +1,6 @@
-
 <div id='select-lists'>
   <div class='row'>
-    <div class="form-group col-md-5">
+    <div class="form-group col-md-6">
       <%= label_tag 'scenario' %>
       <%= select_tag(:scenario, options_for_select(@scenarios, params[:scenario]), class: 'form-control js-field-changer') %>
     </div>
@@ -9,7 +8,7 @@
 
   <% if @advocate_types.present? %>
     <div class='row'>
-      <div class="form-group col-md-5">
+      <div class="form-group col-md-6">
         <%= label_tag 'advocate_type' %>
         <%= select_tag(:advocate_type, options_for_select(@advocate_types, params[:advocate_type]), class: 'form-control') %>
       </div>
@@ -17,14 +16,14 @@
   <% end %>
 
   <div class='row'>
-    <div class="form-group col-md-5">
+    <div class="form-group col-md-6">
       <%= label_tag 'offence_class' %>
       <%= select_tag(:offence_class, options_for_select(@offence_classes, params[:offence_class]), class: 'form-control js-field-changer') %>
     </div>
   </div>
 
   <div class='row'>
-    <div class="form-group col-md-5">
+    <div class="form-group col-md-6">
       <%= label_tag 'fee_type' %>
       <%= select_tag(:fee_type_code, options_for_select(@fee_types, params[:fee_type_code]), class: 'form-control js-field-changer') %>
     </div>

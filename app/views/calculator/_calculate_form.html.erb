@@ -1,0 +1,23 @@
+<%= form_tag({controller: "calculator", action: "calculate"}, id: 'calculate_form', method: 'get', remote: true) do %>
+
+  <%= hidden_field_tag 'fee_scheme', @fee_scheme.id %>
+
+  <div class="row col-md-12">
+    <%= render 'select_lists' %>
+  </div>
+
+  <div class="row col-md-12">
+    <div class="col-md-3">
+      <%= render 'units'%>
+    </div>
+    <div class="col-md-6">
+      <%= render 'modifiers'%>
+    </div>
+  </div>
+  <div class="row col-md-12">
+    <div class="form-group">
+      <%= submit_tag("Calculate", class: 'btn-primary btn-lg') %>
+    </div>
+    <div id='result'>£ 0.00</div>
+  </div>
+<% end %>

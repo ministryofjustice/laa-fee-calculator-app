@@ -2,10 +2,9 @@
   <% if @modifiers.present? %>
     <h5>Modifiers</h5>
 
-    
     <% @modifiers.each do |modifier| %>
       <div class="row">
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-6">
           <%= label_tag modifier, nil, class: 'control-label' %>
           <%= number_field_tag modifier, nil, class: 'form-control'%>
         </div>
