@@ -1,2 +1,5 @@
-$('#calculate_form').remove();
-$('#fee_schemes_form').append('<%= j (render("calculate_form")) %>');
+$('#fee-scheme').replaceWith('<%= j (render("fee_scheme")) %>');
+$('#select-lists').replaceWith('<%= j (render("select_lists")) %>');
+$('#modifiers').replaceWith('<%= j (render("modifiers")) %>');
+$('#units').replaceWith('<%= j (render("units")) %>');
+$('#result').html('£ 0.00')

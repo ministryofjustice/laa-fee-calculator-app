@@ -1,30 +1,26 @@
 class CalculatorController < ApplicationController
   attr_reader :fee_scheme
-
   before_action :setup, only: [:new, :calculate, :fee_scheme_changed, :select_list_changed]
-
-  FEE_CALCULATOR_FIELDS = %i[fee_scheme scenario offence_class advocate_type fee_type_code case day defendant fixed halfday hour month ppe pw third number_of_cases number_of_defendants trial_length pages_of_prosection_evidence retrial_interval third_cracked]
+  FEE_CALCULATOR_PARAMS = %i[scenario offence_class advocate_type fee_type_code case day defendant fixed halfday hour month ppe pw third number_of_cases number_of_defendants trial_length pages_of_prosection_evidence retrial_interval third_cracked]
 
   def new
   end
 
   def calculate
     @amount = fee_scheme.calculate do |options|
-      FEE_CALCULATOR_FIELDS.each do |field|
-        options[field] = calculator_params[field] if calculator_params[field].present?
+      FEE_CALCULATOR_PARAMS.each do |param|
+        options[param] = calculator_params[param] if calculator_params[param].present?
       end
     end
 
     respond_to do |format|
       format.js
-      format.html { render action: :new }
     end
   end
 
   def fee_scheme_changed
     respond_to do |format|
       format.js
-      format.html { render action: :new }
     end
   end
 
