@@ -15,18 +15,21 @@ class CalculatorController < ApplicationController
 
     respond_to do |format|
       format.js
+      format.html { render action: :new }
     end
   end
 
   def fee_scheme_changed
     respond_to do |format|
       format.js
+      format.html { render action: :new }
     end
   end
 
   def select_list_changed
     respond_to do |format|
       format.js
+      format.html { render action: :new }
     end
   end
 
