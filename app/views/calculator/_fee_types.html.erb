@@ -1,0 +1,4 @@
+<div id='fee_types'>
+  <%= label_tag 'fee_type' %>
+  <%= select_tag(:fee_type_code, options_for_select(@fee_types, params[:fee_type_code]), class: 'form-control js-field-changer') %>
+  </div>

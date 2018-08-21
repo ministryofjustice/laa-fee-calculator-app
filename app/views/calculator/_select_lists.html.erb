@@ -24,8 +24,7 @@
 
   <div class='row'>
     <div class="form-group col-md-6">
-      <%= label_tag 'fee_type' %>
-      <%= select_tag(:fee_type_code, options_for_select(@fee_types, params[:fee_type_code]), class: 'form-control js-field-changer') %>
+      <%= render 'fee_types' %>
     </div>
   </div>
 </div>

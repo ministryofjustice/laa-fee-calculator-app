@@ -24,13 +24,12 @@ $(document).on 'change', '.js-field-changer', ->
   advocate_type = $('#advocate_type').val()
   offence_class = $('#offence_class').val()
   fee_type_code = $('#fee_type_code').val()
-  console.log scenario
   $.ajax
     url: '/calculator/select_list_changed'
     method: 'GET'
     data: fee_scheme: fee_scheme, scenario: scenario, advocate_type: advocate_type, offence_class: offence_class, fee_type_code: fee_type_code
     error: (xhr, status, error) ->
-      console.error 'AJAX Error: ' + status + error
+      console.error 'AJAX Error: ' + status + ' ' + error
       return
     success: ->
       console.log 'success!'

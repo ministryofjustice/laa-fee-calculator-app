@@ -62,7 +62,11 @@ class CalculatorController < ApplicationController
     @scenarios = fee_scheme.scenarios.map { |s| [s.name, s.id] }
     @advocate_types = fee_scheme.advocate_types.map { |at| [at.name, at.id] }
     @offence_classes = fee_scheme.offence_classes.map { |oc| ["#{oc.name} - #{oc.description}", oc.id] }
-    @fee_types = fee_scheme.fee_types.map { |ft| [ft.name, ft.code] }
+    @fee_types = fee_scheme.fee_types(scenario: current_scenario).map { |ft| [ft.name, ft.code] }
+  end
+
+  def current_scenario
+    calculator_params.fetch(:scenario, @scenarios.first[1])
   end
 
   def setup
